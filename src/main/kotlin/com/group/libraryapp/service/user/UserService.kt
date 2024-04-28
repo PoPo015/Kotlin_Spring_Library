@@ -29,7 +29,7 @@ class UserService(
     @Transactional(readOnly = true)
     fun getUsers(): List<UserResponse> {
         return userRepository.findAll()
-            .map { UserResponse(it) }
+            .map { UserResponse(it.id!!, it.name, it.age) }
         // 위와 같은건 일반적으로 3가지로 사용할수 있음.
         // 1.람다와 같이 user -> UserResponse(user)
         // 2. 코틀린에 있는 키워드 it 사용 UserResponse(it)
