@@ -62,8 +62,8 @@ class UserServiceTest @Autowired constructor(
     @DisplayName("유저 정보 업데이트")
     fun updateUserTest() {
         //given
-        val savedUser = userRepository.save(User("A", null))
-        val userUpdateRequest = UserUpdateRequest(savedUser.id, "B")
+        val savedUser = userRepository.save(User("A", 0))
+        val userUpdateRequest = UserUpdateRequest(savedUser.id!!, "B")
 
         //when
         userService.updateUserName(userUpdateRequest)
@@ -77,7 +77,7 @@ class UserServiceTest @Autowired constructor(
     @DisplayName("유저 정보 삭제")
     fun deleteUserTest() {
         //given
-        val savedUser = userRepository.save(User("A", null))
+        val savedUser = userRepository.save(User("A", 0))
 
         //when
         userService.deleteUser(savedUser.name)

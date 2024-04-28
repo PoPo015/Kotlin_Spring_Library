@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.*
 
 @SpringBootTest
 class BookServiceTest(
@@ -46,10 +47,9 @@ class BookServiceTest(
     @DisplayName("책 대출이 정상 동작한다.")
     fun loanBookTest() {
         //given
-        val book = Book()
-        book.name = "이상한 나라의 엘리스"
+        val book = Book("이상한 나라의 엘리스", null)
         bookRepository.save(book)
-        val saveUser = userRepository.save(User("김승태", 31))
+        val saveUser = userRepository.save(User("김승태", 31, Collections.emptyList()))
         val bookLoanRequest = BookLoanRequest("김승태", "이상한 나라의 엘리스")
 
         //when
@@ -67,8 +67,7 @@ class BookServiceTest(
     @DisplayName("책 대출 중이라면, 신규 대출이 실패한다.")
     fun loanBookFailTest() {
         // given
-        val book = Book()
-        book.name = "이상한 나라의 엘리스"
+        val book = Book("이상한 나라의 엘리스", null)
         bookRepository.save(book)
         val saveUser = userRepository.save(User("김승태", 31))
         val bookLoanRequest = BookLoanRequest("김승태", "이상한 나라의 엘리스")

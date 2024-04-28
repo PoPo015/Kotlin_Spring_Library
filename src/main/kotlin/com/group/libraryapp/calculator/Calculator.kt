@@ -15,12 +15,13 @@ data class Calculator(
         this.number *= operand
     }
 
-    fun divide(operand: Int) {
+    fun divide(operand: Int) : String {
         if (operand == 0) {
             throw IllegalArgumentException("0으로 나눌수 없습니다.");
         }
 
         this.number /= operand
+        return "AA";
     }
 
 }
