@@ -5,6 +5,9 @@ import com.group.libraryapp.domain.user.UserRepository
 import com.group.libraryapp.dto.user.request.UserCreateRequest
 import com.group.libraryapp.dto.user.request.UserUpdateRequest
 import com.group.libraryapp.dto.user.response.UserResponse
+import com.group.libraryapp.util.fail
+import com.group.libraryapp.util.findByIdOrThrow
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.lang.IllegalArgumentException
@@ -35,18 +38,16 @@ class UserService(
 
     @Transactional
     fun updateUserName(request: UserUpdateRequest){
-        val user = userRepository.findById(request.id)
-            .orElseThrow { IllegalAccessException("$request.id 는 비정상입니다") }
+        // 파일에서 공통으로 익셉션 확장 함수를 이용해 파일 및 메소드를 만들어서 사용한
+        val user = userRepository.findByIdOrThrow(request.id)
         user.updateName(request.name)
+
     }
 
     @Transactional
     fun deleteUser(name: String){
-        val user = userRepository.findByName(name)
-            .orElseThrow { IllegalAccessException("$name 는 비정상입니다") }
-
+        val user = userRepository.findByName(name) ?: fail()
         userRepository.delete(user)
-
     }
 
 }

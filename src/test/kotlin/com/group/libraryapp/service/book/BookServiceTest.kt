@@ -38,8 +38,8 @@ class BookServiceTest(
         bookService.saveBook(bookRequest)
 
         //then
-        val findByName = bookRepository.findByName(bookRequest.name)
-        assertThat(findByName.get().name).isEqualTo("이상한 나라의 엘리스")
+        val book = bookRepository.findByName(bookRequest.name)
+        assertThat(book!!.name).isEqualTo("이상한 나라의 엘리스")
     }
 
 
